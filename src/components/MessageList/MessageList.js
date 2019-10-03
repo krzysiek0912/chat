@@ -6,15 +6,14 @@ import './MessageList.css';
 const MessageList = props => (
   <div className="MessageList">
     {
-      props.messages.map((message, i) => {
-        return (
+      props.messages.map( (message, i) => (
           <Message
             key={i}
             from={message.from}
             text={message.text}
           />
-        );
-      })
+        )
+      )
     }
   </div>
 );

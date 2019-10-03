@@ -9,12 +9,6 @@ const io = socketIo(server);
 const UsersService = require('./UsersService');
 const usersService = new UsersService();
 
-app.use(express.static(`${__dirname}/public`));
-
-app.get("/", (req, res) => {
-  res.sendFile(`${__dirname}/public/index.html`);
-});
-
 io.on('connection', (socket) => {
 
   socket.on('join', (name) => {
@@ -31,18 +25,24 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
+
     usersService.removeUser(socket.id);
+
     socket.broadcast.emit('update', {
       users: usersService.getAllUsers()
     });
+
   });
 
   socket.on('message', (message) => {
+
     const {name} = usersService.getUserById(socket.id);
+
     socket.broadcast.emit('message', {
       text: message.text,
       from: name
     });
+
   });
   
 });

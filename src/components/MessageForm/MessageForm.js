@@ -2,37 +2,36 @@ import React, {Component} from 'react';
 import './MessageForm.css';
 
 class MessageForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {text: ''};
-  }
+  
+  state = {text: ''};
+  
 
   handleSubmit(e) {
     e.preventDefault();
+
     const message = {
       from : this.props.name,
       text : this.state.text
     };
+
     this.props.onMessageSubmit(message);
-    this.setState({ text: '' });
+    this.setState( { text: '' } );
   }
 
-  changeHandler(e) {
-    this.setState({ text : e.target.value });
+  changeHandler( { target } ) {
+    this.setState( { text : target.value } );
   }
 
-  render() {
-    return(
-      <form className="MessageForm" onSubmit={e => this.handleSubmit(e)}>
-        <input
-          className="MessageInput"
-          onChange={e => this.changeHandler(e)}
-          value={this.state.text}
-          placeholder='Message'
-        />
-      </form>
-    );
-  }
+  render = () => (
+    <form className="MessageForm" onSubmit={ e => this.handleSubmit(e) }>
+      <input
+        className="MessageInput"
+        onChange={ e => this.changeHandler(e) }
+        value={ this.state.text }
+        placeholder='Message'
+      />
+    </form>
+  );  
 }
 
 export default MessageForm;
