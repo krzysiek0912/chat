@@ -4,10 +4,10 @@ import io from 'socket.io-client';
 import Layout from '../Layout/Layout'
 import UserForm from '../UserForm/UserForm'
 
-const socket = io('/');
+const socket = io('http://localhost:8000/');
 
 class App extends Component {
-  state = {users: [{id:1, name:'asda'}, {id:2, name:'2asda'}], messages: [{from:'asda', text:'asdasd'},{from:'asda2', text:'asdasd2'}], text: '', name: 'asdasd'};  
+  state = {users: [], messages: [], text: '', name: ''};  
   
   componentDidMount() {
     socket.on('message', message => this.messageReceive(message));
